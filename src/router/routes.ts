@@ -1,21 +1,19 @@
-// src/router/routes.ts
 import { RouteRecordRaw } from 'vue-router';
-import MainLayout from 'layouts/MainLayout.vue';
-import Login from 'pages/LoginPage.vue';
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: MainLayout,
+    component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: Login } // ルートパスにログインページを設定
-    ],
+      { path: '', component: () => import('pages/IndexPage.vue') },
+      { path: 'login', component: () => import('pages/LoginPage.vue') },
+      { path: 'register', component: () => import('pages/RegisterPage.vue') }  // 会員登録ページのルートを追加
+    ]
   },
   {
-    path: '/home',
-    component: () => import('pages/Home.vue'),
-  },
-  // その他のルート設定
+    path: '/:catchAll(.*)*',
+    component: () => import('pages/ErrorNotFound.vue')
+  }
 ];
 
 export default routes;

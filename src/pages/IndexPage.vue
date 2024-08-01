@@ -1,47 +1,51 @@
+<!-- src/pages/IndexPage.vue -->
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+  <q-page class="flex flex-center">
+    <div class="welcome-container">
+      <h1>Test Natago</h1>
+      <q-btn
+        to="/register"
+        label="Register"
+        color="primary"
+        class="q-mt-md"
+      />
+      <q-btn
+        to="/login"
+        label="Login"
+        color="primary"
+        class="q-mt-md"
+      />
+    </div>
   </q-page>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
-
-defineOptions({
-  name: 'IndexPage'
-});
-
-const todos = ref<Todo[]>([
-  {
-    id: 1,
-    content: 'ct1'
-  },
-  {
-    id: 2,
-    content: 'ct2'
-  },
-  {
-    id: 3,
-    content: 'ct3'
-  },
-  {
-    id: 4,
-    content: 'ct4'
-  },
-  {
-    id: 5,
-    content: 'ct5'
-  }
-]);
-
-const meta = ref<Meta>({
-  totalCount: 1200
-});
+<script setup>
 </script>
+
+<style scoped>
+.q-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #000000; /* 背景色: 明るいグレー */
+}
+
+.welcome-container {
+  text-align: center;
+  background-color: #ffffff7c; /* コンテナ背景色: 白 */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 柔らかい影の効果 */
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #000000; /* タイトルテキスト色 */
+}
+
+.q-btn {
+  display: block;
+  margin: 10px auto;
+}
+</style>

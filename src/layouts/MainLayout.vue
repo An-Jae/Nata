@@ -1,42 +1,29 @@
-<!-- src/layouts/MainLayout.vue -->
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh lpR fFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <q-btn flat round icon="menu" @click="toggleLeftDrawer" />
+        <q-toolbar-title>Quasar App</q-toolbar-title>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" overlay>
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
+        <q-item to="/" clickable>
+          <q-item-section>
+            <q-item-label>ホーム</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/login" clickable>
+          <q-item-section>
+            <q-item-label>ログイン</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/register" clickable>
+          <q-item-section>
+            <q-item-label>会員登録</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
@@ -47,20 +34,47 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import EssentialLink, { EssentialLinkProps } from 'components/EssentialLink.vue';
-
-defineOptions({
-  name: 'MainLayout'
-});
-
-const linksList: EssentialLinkProps[] = [
-  // リンクリストの定義
-];
+import { ref, onMounted, onUnmounted } from 'vue';
+import { useRouter } from 'vue-router';
 
 const leftDrawerOpen = ref(false);
+const timeout = ref(10 * 60 * 1000); // 10分 (ミリ秒)
+let timer: NodeJS.Timeout;
+const router = useRouter();
 
-function toggleLeftDrawer () {
+function resetTimer() {
+  clearTimeout(timer);
+  startTimer();
+}
+
+function startTimer() {
+  timer = setTimeout(() => {
+    alert('ログアウトします');
+    // ログアウト処理をここに追加
+    // 例: firebase.auth().signOut().then(() => router.push('/login'));
+    router.push('/login');
+  }, timeout.value);
+}
+
+onMounted(() => {
+  startTimer();
+  window.addEventListener('mousemove', resetTimer);
+  window.addEventListener('keydown', resetTimer);
+});
+
+onUnmounted(() => {
+  clearTimeout(timer);
+  window.removeEventListener('mousemove', resetTimer);
+  window.removeEventListener('keydown', resetTimer);
+});
+
+function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 </script>
+
+<style scoped>
+.q-card {
+  padding: 20px;
+}
+</style>

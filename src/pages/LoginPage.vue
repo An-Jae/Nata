@@ -20,7 +20,7 @@
       />
       <q-btn
         type="submit"
-        label="Login"
+        label="ログイン"
         color="primary"
         class="full-width"
         :loading="loading"
@@ -68,8 +68,8 @@ function handleLogin() {
   max-width: 400px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1); /* 부드러운 그림자 효과: 흰색 */
-  background-color: #fff; /* 카드 배경 색: 흰색 */
-  color: #000; /* 카드 텍스트 색: 검은색 */
+  background-color: #ffffff7c; /* 카드 배경 색: 흰색 */
+  color: #ffffff7c; /* 카드 텍스트 색: 검은색 */
 }
 
 .q-card-section {
@@ -81,7 +81,7 @@ function handleLogin() {
 }
 
 .q-input input {
-  color: #000; /* 입력 필드 텍스트 색: 검은색 */
+  color: #ffffff7c; /* 입력 필드 텍스트 색: 검은색 */
   background-color: #fff; /* 입력 필드 배경 색: 흰색 */
 }
 
@@ -89,7 +89,7 @@ function handleLogin() {
   width: 100px; /* 버튼 너비 */
   margin-left: 10px; /* 버튼 간격 */
   color: #fff; /* 버튼 텍스트 색: 흰색 */
-  background-color: #000; /* 버튼 배경 색: 검은색 */
+  background-color: #ffffff7c; /* 버튼 배경 색: 검은색 */
 }
 
 .q-btn:hover {
