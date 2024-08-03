@@ -1,6 +1,6 @@
 <!-- src/pages/IndexPage.vue -->
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="ocean-theme">
     <div class="welcome-container">
       <h1>Test Natago</h1>
       <q-btn
@@ -23,29 +23,37 @@
 </script>
 
 <style scoped>
-.q-page {
+/* 背景色: 海のような青 */
+.ocean-theme {
+  background: linear-gradient(to bottom, #87CEEB, #4682B4); /* 空と海のグラデーション */
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #000000; /* 背景色: 明るいグレー */
 }
 
+/* コンテンツコンテナ */
 .welcome-container {
   text-align: center;
-  background-color: #ffffff7c; /* コンテナ背景色: 白 */
+  background-color: rgba(255, 255, 255, 0.9); /* 白の半透明背景 */
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 柔らかい影の効果 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 柔らかい影の効果 */
 }
 
 h1 {
   margin-bottom: 20px;
-  color: #000000; /* タイトルテキスト色 */
+  color: #4682B4; /* タイトルテキスト色: 海の青 */
 }
 
 .q-btn {
   display: block;
   margin: 10px auto;
+  background-color: #4ba2ff; /* ボタン背景色: 青 */
+  color: #fff; /* ボタンテキスト色: 白 */
+}
+
+.q-btn:hover {
+  background-color: #357abd; /* ボタンホバー色: 少し濃い青 */
 }
 </style>

@@ -7,7 +7,8 @@ const routes: RouteRecordRaw[] = [
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: 'login', component: () => import('pages/LoginPage.vue') },
-      { path: 'register', component: () => import('pages/RegisterPage.vue') }  // 会員登録ページのルートを追加
+      { path: 'register', component: () => import('pages/RegisterPage.vue') },  // 会員登録ページのルートを追加
+      { path: 'home', component: () => import('pages/HomePage.vue') } // ホームページのパスを追加
     ]
   },
   {

@@ -60,6 +60,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { auth } from '../firebase';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 const username = ref('');
 const email = ref('');
@@ -68,19 +70,26 @@ const confirmPassword = ref('');
 const passwordVisible = ref(false);
 const router = useRouter();
 
-function register() {
+async function register() {
   if (password.value !== confirmPassword.value) {
     alert('パスワードが一致しません。');
     return;
   }
 
-  // 例えば、Firebase Authを使用する場合:
-  // firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
-  //   .then(() => router.push('/login'))
-  //   .catch((error) => console.error('会員登録に失敗しました:', error));
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+    const user = userCredential.user;
 
-  console.log('会員登録:', { username: username.value, email: email.value, password: password.value });
-  router.push('/login');
+    await updateProfile(user, {
+      displayName: username.value
+    });
+
+    console.log('会員登録成功:', { username: username.value, email: email.value });
+    router.push('/login');
+  } catch (error) {
+    console.error('会員登録に失敗しました:', error);
+    alert('会員登録に失敗しました。');
+  }
 }
 
 function togglePasswordVisibility() {
@@ -94,14 +103,14 @@ function togglePasswordVisibility() {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #000000; /* ページ背景色: グレー */
+  background-color: #000; /* ページ背景色: 黒 */
 }
 
 .q-card {
   width: 100%;
   max-width: 400px;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.066); /* 柔らかい影: 黒 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 柔らかい影: 黒 */
   background-color: #ffffff7c; /* カード背景色: 白 */
 }
 
@@ -110,23 +119,23 @@ function togglePasswordVisibility() {
 }
 
 .custom-input .q-input__control {
-  background-color: #ffffff; /* 入力フィールド背景色: 白 */
+  background-color: #ffffff7c; /* 入力フィールド背景色: 白 */
   border-radius: 5px;
 }
 
 .custom-input .q-input__control input {
-  color: #00000000; /* 入力テキスト色: ダークグレー */
-  background-color: #fff; /* 入力フィールド背景色: 白 */
+  color: #333; /* 入力テキスト色: ダークグレー */
+  background-color: #ffffff7c; /* 入力フィールド背景色: 白 */
 }
 
 .q-btn {
   width: 100%;
   margin-top: 10px;
   color: #fff; /* ボタンテキスト色: 白 */
-  background-color: #4ba2ff; /* ボタン背景色: ブルー */
+  background-color: #007bff; /* ボタン背景色: ブルー */
 }
 
 .q-btn:hover {
-  background-color: #4ba2ff; /* ホバー時のボタン背景色: ダークブルー */
+  background-color: #0056b3; /* ホバー時のボタン背景色: ダークブルー */
 }
 </style>
